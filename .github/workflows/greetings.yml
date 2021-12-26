@@ -19,6 +19,7 @@ jobs:
           cd ./main/
           ls ${GITHUB_WORKSPACE}
           echo ${GITHUB_WORKSPACE}
+          pwd
           
       - name: runyhf
         uses: actions/checkout@v2
