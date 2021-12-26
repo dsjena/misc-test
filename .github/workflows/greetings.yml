@@ -1,13 +1,12 @@
 name: Greetings
 
-
 on:
   push:
   schedule:
     - cron:  '* * * 1 *'
 
 jobs:
-  extract:
+  sj:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,12 +20,12 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           pwd
           
-      - name: HDNSE
+      - name: runyhf
         uses: actions/checkout@v2
         with:
-          repository: dsjena/YHighFDB
+          repository: dsjena/runyhf
           token: ${{ secrets.SUPER_SECRET }}
-          path: YHighFDB
+          path: runyhf
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
