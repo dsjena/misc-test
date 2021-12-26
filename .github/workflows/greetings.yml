@@ -1,16 +1,55 @@
 name: Greetings
 
-on: [pull_request, issues]
+
+on:
+  push:
+  schedule:
+    - cron:  '* * * 1 *'
 
 jobs:
-  greeting:
+  extract:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
-    - uses: actions/first-interaction@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: 'Message that will be displayed on users first issue'
-        pr-message: 'Message that will be displayed on users first pull request'
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
+      - name: Check Main
+        run: |
+          cd ./main/
+          ls ${GITHUB_WORKSPACE}
+          echo ${GITHUB_WORKSPACE}
+          
+      - name: runyhf
+        uses: actions/checkout@v2
+        with:
+          repository: dsjena/runyhf
+          token: ${{ secrets.SUPER_SECRET }}
+          path: runyhf
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          cd ./runyhf/
+          python -m pip install --upgrade pip
+          #pip install -r requirements-yq.txt
+      - name: Actual Calculation
+        run: |
+          cd ./runyhf/
+          ls 
+          dtt=`TZ=IST-5:30 date`
+          echo ${GITHUB_WORKSPACE}
+          echo "${dtt}" 
+          echo "${dtt}" >> recieved.md
+          #bash make-rdme.sh >> log.txt 2>&1
+          #ls ../
+          #ls ../main/
+          #ls ../main/data/
+          #rsync -av ../main/data/* nse/.
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Load YH" -a
+          git push
