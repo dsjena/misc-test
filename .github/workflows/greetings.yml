@@ -21,12 +21,12 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           pwd
           
-      - name: runyhf
+      - name: HDNSE
         uses: actions/checkout@v2
         with:
-          repository: dsjena/nsepull
+          repository: dsjena/YHighFDB
           token: ${{ secrets.SUPER_SECRET }}
-          path: runyhf
+          path: YHighFDB
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
