@@ -24,7 +24,7 @@ jobs:
       - name: runyhf
         uses: actions/checkout@v2
         with:
-          repository: dsjena/runyhf
+          repository: dsjena/nsepull
           token: ${{ secrets.SUPER_SECRET }}
           path: runyhf
       - name: Set up Python
