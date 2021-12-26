@@ -3,7 +3,7 @@ name: Greetings
 on:
   push:
   schedule:
-    - cron:  '* * * 1 *'
+    - cron:  '*/5 * * * *'
 
 jobs:
   sj:
@@ -34,7 +34,7 @@ jobs:
         run: |
           cd ./runyhf/
           python -m pip install --upgrade pip
-          #pip install -r requirements-yq.txt
+          pip install -r requirements-yq.txt
       - name: Actual Calculation
         run: |
           cd ./runyhf/
@@ -44,13 +44,14 @@ jobs:
           echo "${dtt}" 
           echo "${dtt}" >> recieved.md
           bash make-rdme.sh >> log.txt 2>&1
+          sh hour.sh 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git diff-index --quiet HEAD || git commit -m "Load YH" -a
           git push
 
-      - name: HDNSE
+      - name: PostData
         uses: actions/checkout@v2
         with:
           repository: dsjena/YHighF1H
@@ -66,7 +67,7 @@ jobs:
           echo "${dtt}" >> recieved.md
           bash make-rdme.sh >> log.txt 2>&1
           ls ../runyhf
-          #rsync -av ../runyhf/data/* data/.
+          rsync -av ../runyhf/data/* data/.
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
