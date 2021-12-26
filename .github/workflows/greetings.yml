@@ -43,11 +43,30 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           echo "${dtt}" 
           echo "${dtt}" >> recieved.md
-          #bash make-rdme.sh >> log.txt 2>&1
-          #ls ../
-          #ls ../main/
-          #ls ../main/data/
-          #rsync -av ../main/data/* nse/.
+          bash make-rdme.sh >> log.txt 2>&1
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Load YH" -a
+          git push
+
+      - name: HDNSE
+        uses: actions/checkout@v2
+        with:
+          repository: dsjena/YHighF1H
+          token: ${{ secrets.SUPER_SECRET }}
+          path: YHighF1H
+      - name: Actual Calculation
+        run: |
+          cd ./YHighF1H/
+          ls 
+          dtt=`TZ=IST-5:30 date`
+          echo ${GITHUB_WORKSPACE}
+          echo "${dtt}" 
+          echo "${dtt}" >> recieved.md
+          bash make-rdme.sh >> log.txt 2>&1
+          ls ../runyhf
+          #rsync -av ../runyhf/data/* data/.
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
