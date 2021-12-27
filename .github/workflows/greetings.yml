@@ -19,6 +19,7 @@ jobs:
           ls ${GITHUB_WORKSPACE}
           echo ${GITHUB_WORKSPACE}
           pwd
+          echo "main is done..."
           
       - name: runyhf
         uses: actions/checkout@v2
@@ -38,12 +39,13 @@ jobs:
       - name: Actual Calculation
         run: |
           cd ./runyhf/
-          ls 
+          #ls 
           dtt=`TZ=IST-5:30 date`
           echo ${GITHUB_WORKSPACE}
           echo "${dtt}" 
           echo "${dtt}" >> recieved.md
           bash make-rdme.sh >> log.txt 2>&1
+          echo "Running hour..."
           sh hour.sh 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -60,13 +62,13 @@ jobs:
       - name: Actual Calculation
         run: |
           cd ./YHighF1H/
-          ls 
+          #ls 
           dtt=`TZ=IST-5:30 date`
           echo ${GITHUB_WORKSPACE}
           echo "${dtt}" 
           echo "${dtt}" >> recieved.md
           bash make-rdme.sh >> log.txt 2>&1
-          ls ../runyhf
+          #ls ../runyhf
           rsync -av ../runyhf/data/* data/.
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
