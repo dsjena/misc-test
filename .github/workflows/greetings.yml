@@ -3,7 +3,7 @@ name: Greetings
 on:
   #push:
   schedule:
-    - cron:  '*/5 * * * *'
+    - cron:  '*/5 * * 3 *'
 
 jobs:
   sj:
